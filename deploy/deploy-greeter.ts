@@ -7,12 +7,14 @@ import * as ethers from "ethers";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { Deployer } from "@matterlabs/hardhat-zksync-deploy";
 
+const hre = require("hardhat");
+
 
 const zkSyncProvider = new zksync.Provider("https://testnet.era.zksync.dev/");
 const ethereumProvider = ethers.getDefaultProvider(process.env.GOERLI_RPC_URL as string);
 
 // An example of a deploy script that will deploy and call a simple contract.
-export default async function (hre: HardhatRuntimeEnvironment) {
+async function main(hre: HardhatRuntimeEnvironment) {
   console.log(`Running deploy script for the Greeter contract`);
 
   // Initialize the wallet.
@@ -50,3 +52,8 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   const contractAddress = greeterContract.address;
   console.log(`${artifact.contractName} was deployed to ${contractAddress}`);
 }
+
+main(hre).catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+});

@@ -8,6 +8,7 @@ const proxyAgent = new ProxyAgent(proxyUrl);
 setGlobalDispatcher(proxyAgent);
 
 // package
+import "@nomiclabs/hardhat-waffle"
 import "@matterlabs/hardhat-zksync-deploy";
 import "@matterlabs/hardhat-zksync-solc";
 
@@ -27,8 +28,12 @@ module.exports = {
       ethNetwork: process.env.GOERLI_RPC_URL, // RPC URL of the network (e.g. `https://goerli.infura.io/v3/<API_KEY>`)
       zksync: true,
     },
+    goerli: {
+        url: process.env.GOERLI_RPC_URL,
+        accounts: [process.env.PRIVATE_KEY],
+    }
   },
   solidity: {
-    version: "0.8.8",
+    version: "0.8.13",
   },
 };
